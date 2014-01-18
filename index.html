@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <script type='text/javascript' src='http://code.jquery.com/jquery-latest.min.js'></script>
+      <script type='text/javascript' src='crop.js'></script>
+      <style>
+       canvas { box-shadow: 0 0 10px black; margin: 20px; }​
+          </style>
+
+  </head>
+  <body>
+  <table>
+  <tr>
+  <td>
+    <input type="button" id="crop" value="CROP" />
+    <div id="container">
+<canvas width="217" height="275" id="myCanvas" style="position:relative;margin-left:0px;margin-top:0px;"></canvas>
+    </div>
+<div id="png" style="display:block;">Click on the image sequencial points forming the shape to be cropped and click on CROP button.<br/> Refresh to restart.</div>
+
+ 
+<div id="oldposx" style="display:none;"></div>
+<div id="oldposy" style="display:none;"></div>
+<div id="posx" style="display:none;"></div>
+<div id="posy" style="display:none;"></div>
+</td><td>
+HERE WILL APPEAR THE UPLOADED IMAGE
+<div id="myimg"></div><!--preview of image after upload-->
+</td>
+</tr>
+</table>
+  </body>
+</html>

@@ -1,4 +1,10 @@
 <?php
+/*
+ * HTML5 crop image in polygon shape
+ * author: netplayer@gmx.com
+ * file: upload.php
+ * 
+ */
 //error_reporting(E_ALL);
 
 if($_POST) {

@@ -2,19 +2,18 @@
  * HTML5 crop image in polygon shape
  * author: netplayer@gmx.com
  * file : crop.js
- * 
- * 
+   github version
  */
 
 
-$(document).ready(function(){
+$(document).ready(function() {
 
-    var condition=1;
-    var points= [];//holds the mousedown points
-    var canvas=document.getElementById('myCanvas');
+    var condition = 1;
+    var points = [];//holds the mousedown points
+    var canvas = document.getElementById('myCanvas');
     this.isOldIE = (window.G_vmlCanvasManager);
-    $(function(){
-        if(document.domain=='localhost'){
+    $(function() {
+        if (document.domain == 'localhost') {
 
             if (this.isOldIE) {
                 G_vmlCanvasManager.initElement(myCanvas);
@@ -32,7 +31,7 @@ $(document).ready(function(){
 
             // Draw  image onto the canvas
             imageObj.onload = function() {
-                ctx.drawImage(imageObj,0,0);
+                ctx.drawImage(imageObj, 0, 0);
 
             };
             imageObj.src = "img.png";
@@ -43,8 +42,8 @@ $(document).ready(function(){
             ctx.globalCompositeOperation = 'destination-over';
 
             //mousemove event
-            $('#myCanvas').mousemove(function (e) {
-                if(condition==1){
+            $('#myCanvas').mousemove(function(e) {
+                if (condition == 1) {
 
                     ctx.beginPath();
 
@@ -53,34 +52,34 @@ $(document).ready(function(){
                 }
             });
             //mousedown event
-            $('#myCanvas').mousedown(function (e) {
-                if(condition==1){
+            $('#myCanvas').mousedown(function(e) {
+                if (condition == 1) {
 
                     if (e.which == 1) {
                         var pointer = $('<span class="spot">').css({
-                            'position':'absolute',
-                            'background-color':'#000000',
-                            'width':'5px',
-                            'height':'5px',
-                            'top': e.pageY ,
+                            'position': 'absolute',
+                            'background-color': '#000000',
+                            'width': '5px',
+                            'height': '5px',
+                            'top': e.pageY,
                             'left': e.pageX
 
 
                         });
                         //store the points on mousedown
-                        points.push(e.pageX,e.pageY);
-           
+                        points.push(e.pageX, e.pageY);
+
                         //console.log(points);
 
                         ctx.globalCompositeOperation = 'destination-out';
-                        var oldposx= $('#oldposx').html();
-                        var oldposy=$('#oldposy').html();
-                        var posx=$('#posx').html();
-                        var posy=$('#posy').html();
+                        var oldposx = $('#oldposx').html();
+                        var oldposy = $('#oldposy').html();
+                        var posx = $('#posx').html();
+                        var posy = $('#posy').html();
                         ctx.beginPath();
-                        ctx.moveTo(oldposx,oldposy);
-                        if(oldposx!=''){
-                            ctx.lineTo(posx,posy);
+                        ctx.moveTo(oldposx, oldposy);
+                        if (oldposx != '') {
+                            ctx.lineTo(posx, posy);
 
                             ctx.stroke();
                         }
@@ -93,12 +92,12 @@ $(document).ready(function(){
                 }//condition
             });
 
-            $('#crop').click(function(){
-                condition=0;
+            $('#crop').click(function() {
+                condition = 0;
 
                 //  var pattern = ctx.createPattern(imageObj, "repeat");
                 //ctx.fillStyle = pattern;
-                $('.spot').each(function(){
+                $('.spot').each(function() {
                     $(this).remove();
 
                 })
@@ -108,29 +107,29 @@ $(document).ready(function(){
 
                 ctx.clearRect(0, 0, 217, 275);
                 ctx.beginPath();
-                ctx.width=217;
-                ctx.height=275;
+                ctx.width = 217;
+                ctx.height = 275;
                 ctx.globalCompositeOperation = 'destination-over';
                 //draw the polygon
                 setTimeout(function() {
 
 
                     //console.log(points);
-                    var offset=$('#myCanvas').offset();
+                    var offset = $('#myCanvas').offset();
                     //console.log(offset.left,offset.top);
 
 
-                    for (var i=0; i<points.length; i+=2) {
+                    for (var i = 0; i < points.length; i += 2) {
                         var x = parseInt(jQuery.trim(points[i]));
-                        var y = parseInt(jQuery.trim(points[i+1]));
+                        var y = parseInt(jQuery.trim(points[i + 1]));
 
 
                         if (i == 0) {
-                            ctx.moveTo(x-offset.left,y-offset.top);
+                            ctx.moveTo(x - offset.left, y - offset.top);
                         } else {
-                            ctx.lineTo(x-offset.left,y-offset.top);
+                            ctx.lineTo(x - offset.left, y - offset.top);
                         }
-                    //console.log(points[i],points[i+1])
+                        //console.log(points[i],points[i+1])
                     }
 
                     if (this.isOldIE) {
@@ -143,34 +142,34 @@ $(document).ready(function(){
                         fill.type = 'tile';
                         fill.alignShape = false;
                     }
-                    else{
+                    else {
                         var pattern = ctx.createPattern(imageObj, "repeat");
                         ctx.fillStyle = pattern;
                         ctx.fill();
 
-                        var dataurl=canvas.toDataURL("image/png");
- 	
- 	
- 	
+                        var dataurl = canvas.toDataURL("image/png");
+
+
+                        //upload to server (if needed)
                         var xhr = new XMLHttpRequest();
                         // // 
                         xhr.open('POST', 'upload.php', false);
-                        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
-                        var files =dataurl;
+                        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                        var files = dataurl;
                         var data = new FormData();
                         var myprod = $("#pid").val();
-                        data= 'image=' +files;
-                        xhr.send(data);	    
+                        data = 'image=' + files;
+                        xhr.send(data);
                         if (xhr.status === 200) {
                             console.log(xhr.responseText);
-                            $('#myimg').html('<img src="upload/'+xhr.responseText+'.png"/>');
+                            $('#myimg').html('<img src="upload/' + xhr.responseText + '.png"/>');
                         }
 
 
 
                     }
-                },20);
- 
+                }, 20);
+
             });
 
         }

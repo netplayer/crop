@@ -3,7 +3,7 @@
  * HTML5 crop image in polygon shape
  * author: netplayer@gmx.com
  * file: upload.php
- * 
+ * github version 
  */
 //error_reporting(E_ALL);
 

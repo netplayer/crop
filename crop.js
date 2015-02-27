@@ -13,7 +13,7 @@ $(document).ready(function() {
     var canvas = document.getElementById('myCanvas');
     this.isOldIE = (window.G_vmlCanvasManager);
     $(function() {
-        if (document.domain == 'localhost') {
+      //  if (document.domain == 'localhost') {
 
             if (this.isOldIE) {
                 G_vmlCanvasManager.initElement(myCanvas);
@@ -172,7 +172,7 @@ $(document).ready(function() {
 
             });
 
-        }
+       // }
     });
 
 });
